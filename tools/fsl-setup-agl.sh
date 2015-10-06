@@ -2,7 +2,7 @@
 #
 # FSL Build Enviroment Setup Script
 #
-# Copyright (C) 2011-2013 Freescale Semiconductor
+# Copyright (C) 2015 Freescale Semiconductor
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -19,12 +19,12 @@
 # Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 
 echo -e "\n----------------\n"
-exit_message ()
+agl_exit_message()
 {
    echo "AGL setup complete"
 }
 
-usage()
+agl_usage()
 {
     echo -e "\nDescription: fsl-setup-agl.sh will setup the bblayers and local.conf for an AGL build."
     echo -e "\nUsage: source fsl-setup-agl.sh
@@ -35,24 +35,21 @@ usage()
 "
 }
 
-cleanup()
+agl_cleanup()
 {
     echo "Cleaning up variables"
-    unset BLDDIR AGLDISTRO
+    unset BUILD_DIR AGLDISTRO
     unset fsl_setup_help fsl_setup_error fsl_setup_flag
-    unset usage cleanup
-#    exit_message cleanup
+    unset agl_usage agl_cleanup agl_exit_message
 }
 
 echo Reading command line parameters
-echo getopts = $getopts
-echo OPTARG = $OPTARG
 # Read command line parameters
 while getopts "k:r:t:b:e:gh" fsl_setup_flag
 do
     case $fsl_setup_flag in
-        b) BLDDIR="$OPTARG";
-           echo -e "\n Build directory is " $BLDDIR ;
+        b) BUILD_DIR="$OPTARG";
+           echo -e "\n Build directory is $BUILD_DIR" ;
            ;;
         h) fsl_setup_help='true';
            ;;
@@ -60,20 +57,31 @@ do
            ;;
     esac
 done
-echo getopts = $getopts
-echo OPTARG = $OPTARG
 
-PROGNAME="fsl-setup-release"
-# echo PROGNAME=$PROGNAME
+RELEASEPROGNAME="./fsl-setup-release.sh"
 
 # get command line options
 OLD_OPTIND=$OPTIND
-unset AGLDISTRO
 
 # AGL only runs on Wayland
+unset AGLDISTRO
 AGLDISTRO="fsl-imx-agl-wayland"
 
-echo point3
-usage
-cleanup
-exit_message
+if [ -z "$BUILD_DIR" ]; then
+    BUILD_DIR=bld-agl
+fi
+
+echo EULA=1 DISTRO=$AGLDISTRO source $RELEASEPROGNAME -b $BUILD_DIR
+EULA=1 DISTRO=$AGLDISTRO source $RELEASEPROGNAME -b $BUILD_DIR
+
+echo -e "\n## AGL layers" >> $BUILD_DIR/conf/bblayers.conf
+echo "BBLAYERS += \" \${BSPDIR}/sources/meta-agl/meta-agl \"" >> $BUILD_DIR/conf/bblayers.conf
+echo "BBLAYERS += \" \${BSPDIR}/sources/meta-agl/meta-agl-bsp \"" >> $BUILD_DIR/conf/bblayers.conf
+echo "BBLAYERS += \" \${BSPDIR}/sources/meta-agl/meta-ivi-common \"" >> $BUILD_DIR/conf/bblayers.conf
+echo "BBLAYERS += \" \${BSPDIR}/sources/meta-agl-demo \"" >> $BUILD_DIR/conf/bblayers.conf
+echo "BBLAYERS += \" \${BSPDIR}/sources/meta-fsl-agl \"" >> $BUILD_DIR/conf/bblayers.conf
+
+echo done except for cleanup
+
+agl_exit_message
+agl_cleanup
