@@ -12,7 +12,7 @@ Download the BSP Yocto Project Environment
 
 $: mkdir fsl-arm-yocto-bsp
 $: cd fsl-arm-yocto-bsp
-$: repo init -u git://git.freescale.com/imx/fsl-arm-yocto-bsp.git -b imx-3.14.38-6QP_ga-agl
+$: repo init -u http://sw-stash.freescale.net/scm/imx/fsl-arm-yocto-bsp.git -b imx-3.14.38-6QP_ga-agl
 $: repo sync
 
 Setup and Build for Wayland (currently, only one supported)
