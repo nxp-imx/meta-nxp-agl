@@ -1,0 +1,23 @@
+diff --git a/ivi-layermanagement-examples/EGLWLMockNavigation/CMakeLists.txt b/ivi-layermanagement-examples/EGLWLMockNavigation/CMakeLists.txt
+index cb71730..cce5a03 100644
+--- a/ivi-layermanagement-examples/EGLWLMockNavigation/CMakeLists.txt
++++ b/ivi-layermanagement-examples/EGLWLMockNavigation/CMakeLists.txt
+@@ -103,3 +103,5 @@ install(
+     TARGETS     ${PROJECT_NAME}
+     DESTINATION bin
+ )
++
++add_definitions(${EGL_CFLAGS})
+diff --git a/ivi-layermanagement-examples/multi-touch-viewer/CMakeLists.txt b/ivi-layermanagement-examples/multi-touch-viewer/CMakeLists.txt
+index 4ef33cc..0b3e7c9 100644
+--- a/ivi-layermanagement-examples/multi-touch-viewer/CMakeLists.txt
++++ b/ivi-layermanagement-examples/multi-touch-viewer/CMakeLists.txt
+@@ -85,6 +85,8 @@ add_executable(${PROJECT_NAME}
+                ${CMAKE_CURRENT_BINARY_DIR}/ivi-application-protocol.c
+ )
+ 
++add_definitions(${EGL_CFLAGS})
++
+ add_dependencies(${PROJECT_NAME} ${LIBS})
+ 
+ target_link_libraries(${PROJECT_NAME} ${LIBS})
