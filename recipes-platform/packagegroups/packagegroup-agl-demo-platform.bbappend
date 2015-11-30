@@ -1,4 +1,4 @@
 
 RDEPENDS_${PN} += "\
-    ces-qt-demo \
+    CES2016-demo \
     "
