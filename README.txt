@@ -16,7 +16,7 @@ $: repo init -u http://sw-stash.freescale.net/scm/imx/fsl-arm-yocto-bsp.git -b i
 $: repo sync
 
 Setup and Build for Wayland (currently, only one supported)
-$: DISTRO=fsl-imx-agl-wayland MACHINE=imx6qpsabreauto source fsl-setup-release.sh -b bld-agl
+$: DISTRO=fsl-imx-agl-wayland MACHINE=imx6qpsabreauto source fsl-setup-agl.sh -b bld-agl
 
 Most interesting results currently seen with:
 $: bitbake agl-demo-platform
