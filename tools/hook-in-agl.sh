@@ -1,8 +1,8 @@
 #!/bin/sh
 #
-# FSL Build Enviroment Setup Script
+# NXP Build Enviroment Setup Script
 #
-# Copyright (C) 2015 Freescale Semiconductor
+# Copyright (C) 2015-2016 Freescale Semiconductor
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -35,21 +35,21 @@ agl_cleanup()
 {
     echo -e "Cleaning up variables\n"
     unset AGLDISTRO
-    unset fsl_setup_help fsl_setup_error fsl_setup_flag
+    unset nxp_setup_help nxp_setup_error nxp_setup_flag
     unset agl_usage agl_cleanup agl_exit_message
 }
 
 if [ -e "conf/bblayers.conf" ]; then
 
 unset AGLDISTRO
-AGLDISTRO="fsl-imx-agl-wayland"
+AGLDISTRO="nxp-imx-agl-wayland"
 
 echo -e "\n## AGL layers" >> conf/bblayers.conf
 echo "BBLAYERS += \" \${BSPDIR}/sources/meta-agl/meta-agl \"" >> conf/bblayers.conf
 echo "BBLAYERS += \" \${BSPDIR}/sources/meta-agl/meta-agl-bsp \"" >> conf/bblayers.conf
 echo "BBLAYERS += \" \${BSPDIR}/sources/meta-agl/meta-ivi-common \"" >> conf/bblayers.conf
 echo "BBLAYERS += \" \${BSPDIR}/sources/meta-agl-demo \"" >> conf/bblayers.conf
-echo "BBLAYERS += \" \${BSPDIR}/sources/meta-fsl-agl \"" >> conf/bblayers.conf
+echo "BBLAYERS += \" \${BSPDIR}/sources/meta-nxp-agl \"" >> conf/bblayers.conf
 
 echo -e "\nAGL layers added to bblayers.conf"
 
