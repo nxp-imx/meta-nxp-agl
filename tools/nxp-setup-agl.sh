@@ -74,6 +74,7 @@ fi
 echo EULA=1 DISTRO=$AGLDISTRO source $RELEASEPROGNAME -b $BUILD_DIR
 EULA=1 DISTRO=$AGLDISTRO source $RELEASEPROGNAME -b $BUILD_DIR
 
+echo "BBLAYERS += \" \${BSPDIR}/sources/meta-openembedded/meta-efl \"" >> $BUILD_DIR/conf/bblayers.conf
 echo -e "\n## AGL layers" >> $BUILD_DIR/conf/bblayers.conf
 echo "BBLAYERS += \" \${BSPDIR}/sources/meta-agl/meta-agl \"" >> $BUILD_DIR/conf/bblayers.conf
 echo "BBLAYERS += \" \${BSPDIR}/sources/meta-agl/meta-agl-bsp \"" >> $BUILD_DIR/conf/bblayers.conf
