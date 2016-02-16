@@ -38,14 +38,14 @@ agl_usage()
 agl_cleanup()
 {
     echo "Cleaning up variables"
-    unset BUILD_DIR AGLDISTRO
+    unset BUILD_DIR AGLDISTRO OPTIND
     unset nxp_setup_help nxp_setup_error nxp_setup_flag
     unset agl_usage agl_cleanup agl_exit_message
 }
 
 echo Reading command line parameters
 # Read command line parameters
-while getopts "k:r:t:b:e:gh" nxp_setup_flag
+while getopts "k:r:t:b:e:g:h" nxp_setup_flag
 do
     case $nxp_setup_flag in
         b) BUILD_DIR="$OPTARG";
