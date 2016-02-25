@@ -1,4 +1,9 @@
 
+This builds the Wayland-Weston AGL image with the basic AGL interface. 
+Demos can then be run on top of this.
+
+This image has only been run on i.MX 6QP Sabre and Sabre Auto
+
 Build instructions:
 
 Install the `repo` utility:
@@ -25,5 +30,8 @@ Other images:
 $: bitbake agl-image-minimal
 $: bitbake agl-image-ivi
 $: bitbake agl-image-weston
+
+The CES2016 demo is in this image.  To run it, you need to connect an HDMI monitor in the "portrait" orientation.
+The dimensions in the demos are hard coded.  The files used are in /opt/AGL/CES2016 and /etc/xdg/weston.  
 
 
