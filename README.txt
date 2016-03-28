@@ -2,7 +2,9 @@
 This builds the Wayland-Weston AGL image with the basic AGL interface. 
 Demos can then be run on top of this.
 
-This image has only been run on i.MX 6QP Sabre and Sabre Auto
+This image has only been run on i.MX 6QP Sabre and Sabre Auto.  It is
+a demo only.  It is not thoroughly tested nor supported. It is based 
+on the 4.1.15-1.0.0 Freescale release of Linux.
 
 Build instructions:
 
