@@ -46,6 +46,7 @@ AGLDISTRO="nxp-imx-agl-wayland"
 
 echo "BBLAYERS += \" \${BSPDIR}/sources/meta-openembedded/meta-efl \"" >> conf/bblayers.conf
 echo -e "\n## AGL layers" >> conf/bblayers.conf
+echo "BBLAYERS += \" \${BSPDIR}/sources/meta-rust \"" >> conf/bblayers.conf
 echo "BBLAYERS += \" \${BSPDIR}/sources/meta-agl/meta-agl \"" >> conf/bblayers.conf
 echo "BBLAYERS += \" \${BSPDIR}/sources/meta-agl/meta-agl-bsp \"" >> conf/bblayers.conf
 echo "BBLAYERS += \" \${BSPDIR}/sources/meta-agl/meta-ivi-common \"" >> conf/bblayers.conf
