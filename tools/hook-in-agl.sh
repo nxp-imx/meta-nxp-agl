@@ -52,6 +52,7 @@ echo "BBLAYERS += \" \${BSPDIR}/sources/meta-agl/meta-agl-bsp \"" >> conf/bblaye
 echo "BBLAYERS += \" \${BSPDIR}/sources/meta-agl/meta-ivi-common \"" >> conf/bblayers.conf
 echo "BBLAYERS += \" \${BSPDIR}/sources/meta-agl-demo \"" >> conf/bblayers.conf
 echo "BBLAYERS += \" \${BSPDIR}/sources/meta-nxp-agl \"" >> conf/bblayers.conf
+echo "BBLAYERS += \" \${BSPDIR}/sources/gpsnavi-agl/meta-gpsnavi-agl \"" >> conf/bblayers.conf
 
 echo -e "\nAGL layers added to bblayers.conf"
 
