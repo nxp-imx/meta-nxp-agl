@@ -21,7 +21,8 @@ Download the BSP Yocto Project Environment into your directory:
 
 $: mkdir fsl-arm-yocto-bsp
 $: cd fsl-arm-yocto-bsp
-$: repo init -u git://git.freescale.com/imx/fsl-arm-yocto-bsp.git -b imx-4.1.15-1.0.0_agl-demo
+$: repo init -u git://git.freescale.com/imx/fsl-arm-yocto-bsp.git -b krogoth-internal -m krogoth-4.1.15-agl-demo.xml
+
 $: repo sync
 
 Setup and Build for Wayland (currently, only one supported)
