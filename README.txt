@@ -21,7 +21,7 @@ Download the BSP Yocto Project Environment into your directory:
 
 $: mkdir fsl-arm-yocto-bsp
 $: cd fsl-arm-yocto-bsp
-$: repo init -u git://git.freescale.com/imx/fsl-arm-yocto-bsp.git -b krogoth-internal -m krogoth-4.1.15-agl-demo.xml
+$: repo init -u git://git.freescale.com/imx/fsl-arm-yocto-bsp.git -b imx-4.1-krogoth -m imx-4.1.15_2.0.0_agl-demo.xml
 
 $: repo sync
 
@@ -38,6 +38,8 @@ Other images:
 $: bitbake agl-image-minimal
 $: bitbake agl-image-ivi
 $: bitbake agl-image-weston
+
+The "navi" demo is also included.  To run it, follow the instructions in the README.md in sources/gpsnavi-agl.
 
 The CES2016 demo is in this image.  To run it, you need to connect an HDMI monitor in the "portrait" orientation.
 The dimensions in the demos are hard coded.  The files used are in /opt/AGL/CES2016 and /etc/xdg/weston.  
