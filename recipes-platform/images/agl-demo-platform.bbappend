@@ -9,4 +9,6 @@ IMAGE_INSTALL_append = " \
     qtmultimedia-qmlplugins \
     qtquickcontrols-qmlplugins \
     qtsvg-plugins \
+    packagegroup-qt5-demos \
+    packagegroup-agl-demo-qt-examples \
 "
