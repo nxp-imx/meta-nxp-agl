@@ -21,7 +21,7 @@ Download the BSP Yocto Project Environment into your directory:
 
 $: mkdir fsl-arm-yocto-bsp
 $: cd fsl-arm-yocto-bsp
-$: repo init -u git://git.freescale.com/imx/fsl-arm-yocto-bsp.git -b imx-4.1-krogoth -m imx-4.1.15_2.0.0_agl-demo.xml
+$: repo init -u git://git.freescale.com/imx/fsl-arm-yocto-bsp.git -b imx-4.1-krogoth -m imx-4.1.15-2.0.0-agl-demo.xml
 
 $: repo sync
 
