@@ -1,0 +1,7 @@
+diff --git a/plugins/dbus/amb-qt/qmldir b/plugins/dbus/amb-qt/qmldir
+index a2d986c..49557ae 100644
+--- a/plugins/dbus/amb-qt/qmldir
++++ b/plugins/dbus/amb-qt/qmldir
+@@ -1 +1,2 @@
++module amb
+ plugin ambqtquick
