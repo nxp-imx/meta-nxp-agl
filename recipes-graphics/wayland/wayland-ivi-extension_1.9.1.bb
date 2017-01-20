@@ -7,11 +7,12 @@ LIC_FILES_CHKSUM = "file://LICENSE;md5=176cedb32f48dd58f07e0c1c717b3ea4"
 
 DEPENDS = "weston"
 
-SRC_URI = "git://git.projects.genivi.org/${PN}.git \
+SRC_URI = "git://git.projects.genivi.org/${PN}.git;protocol=http \
           "
 SRC_URI_append_wandboard = "file://wandboard_fix_build.patch"
 
 SRCREV = "44598504503eea5ac7f94c88477a5a78bda01f30"
+
 
 S = "${WORKDIR}/git"
 
