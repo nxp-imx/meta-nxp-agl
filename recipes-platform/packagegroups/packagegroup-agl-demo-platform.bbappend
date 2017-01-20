@@ -1,5 +1,5 @@
 
 RDEPENDS_${PN} += "\
-    CES2016-demo \
+    ces2016-demo \
     qtmultimedia-plugins \
     "
