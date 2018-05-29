@@ -1,2 +1,0 @@
-export QT_QPA_PLATFORM=wayland-egl
-export XDG_RUNTIME_DIR=/run/user/$(id -u)
