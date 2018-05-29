@@ -39,25 +39,26 @@ agl_cleanup()
     unset agl_usage agl_cleanup agl_exit_message
 }
 
+agl_layers='
+# Layers for AGL demo
+BBLAYERS += "${BSPDIR}/sources/meta-agl-demo"
+BBLAYERS += "${BSPDIR}/sources/meta-agl-devel/meta-hmi-framework"
+BBLAYERS += "${BSPDIR}/sources/meta-agl/meta-agl-distro"
+BBLAYERS += "${BSPDIR}/sources/meta-agl/meta-agl-profile-core"
+BBLAYERS += "${BSPDIR}/sources/meta-agl/meta-agl-profile-demo"
+BBLAYERS += "${BSPDIR}/sources/meta-agl/meta-agl-profile-graphical"
+BBLAYERS += "${BSPDIR}/sources/meta-agl/meta-app-framework"
+BBLAYERS += "${BSPDIR}/sources/meta-agl/meta-security"
+BBLAYERS += "${BSPDIR}/sources/meta-nxp-agl"
+BBLAYERS += "${BSPDIR}/sources/meta-openembedded/meta-perl"
+BBLAYERS += "${BSPDIR}/sources/meta-security"
+'
+
 if [ -e "conf/bblayers.conf" ]; then
-
-unset AGLDISTRO
-AGLDISTRO="nxp-imx-agl-wayland"
-
-echo "BBLAYERS += \" \${BSPDIR}/sources/meta-openembedded/meta-efl \"" >> conf/bblayers.conf
-echo -e "\n## AGL layers" >> conf/bblayers.conf
-echo "BBLAYERS += \" \${BSPDIR}/sources/meta-rust \"" >> conf/bblayers.conf
-echo "BBLAYERS += \" \${BSPDIR}/sources/meta-agl/meta-agl \"" >> conf/bblayers.conf
-echo "BBLAYERS += \" \${BSPDIR}/sources/meta-agl/meta-agl-bsp \"" >> conf/bblayers.conf
-echo "BBLAYERS += \" \${BSPDIR}/sources/meta-agl/meta-ivi-common \"" >> conf/bblayers.conf
-echo "BBLAYERS += \" \${BSPDIR}/sources/meta-agl-demo \"" >> conf/bblayers.conf
-echo "BBLAYERS += \" \${BSPDIR}/sources/meta-nxp-agl \"" >> conf/bblayers.conf
-echo "BBLAYERS += \" \${BSPDIR}/sources/gpsnavi-agl/meta-gpsnavi-agl \"" >> conf/bblayers.conf
-
-echo -e "\nAGL layers added to bblayers.conf"
-
+	echo "$agl_layers" >> conf/bblayers.conf
+	echo -e "\nAGL layers added to bblayers.conf"
 else
-agl_usage
+	agl_usage
 fi
 
 agl_exit_message
