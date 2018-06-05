@@ -65,7 +65,7 @@ OLD_OPTIND=$OPTIND
 
 # AGL only runs on Wayland
 unset AGLDISTRO
-AGLDISTRO="nxp-imx-agl-wayland"
+AGLDISTRO="imx-agl-wayland"
 
 if [ -z "$BUILD_DIR" ]; then
     BUILD_DIR=bld-agl
@@ -74,15 +74,22 @@ fi
 echo EULA=1 DISTRO=$AGLDISTRO source $RELEASEPROGNAME -b $BUILD_DIR
 EULA=1 DISTRO=$AGLDISTRO source $RELEASEPROGNAME -b $BUILD_DIR
 
-echo "BBLAYERS += \" \${BSPDIR}/sources/meta-openembedded/meta-efl \"" >> $BUILD_DIR/conf/bblayers.conf
-echo -e "\n## AGL layers" >> $BUILD_DIR/conf/bblayers.conf
-echo "BBLAYERS += \" \${BSPDIR}/sources/meta-rust \"" >> $BUILD_DIR/conf/bblayers.conf
-echo "BBLAYERS += \" \${BSPDIR}/sources/meta-agl/meta-agl \"" >> $BUILD_DIR/conf/bblayers.conf
-echo "BBLAYERS += \" \${BSPDIR}/sources/meta-agl/meta-agl-bsp \"" >> $BUILD_DIR/conf/bblayers.conf
-echo "BBLAYERS += \" \${BSPDIR}/sources/meta-agl/meta-ivi-common \"" >> $BUILD_DIR/conf/bblayers.conf
-echo "BBLAYERS += \" \${BSPDIR}/sources/meta-agl-demo \"" >> $BUILD_DIR/conf/bblayers.conf
-echo "BBLAYERS += \" \${BSPDIR}/sources/meta-nxp-agl \"" >> $BUILD_DIR/conf/bblayers.conf
-echo "BBLAYERS += \" \${BSPDIR}/sources/gpsnavi-agl/meta-gpsnavi-agl \"" >> $BUILD_DIR/conf/bblayers.conf
+agl_layers='
+# Layers for AGL demo
+BBLAYERS += "${BSPDIR}/sources/meta-agl-demo"
+BBLAYERS += "${BSPDIR}/sources/meta-agl-devel/meta-hmi-framework"
+BBLAYERS += "${BSPDIR}/sources/meta-agl/meta-agl-distro"
+BBLAYERS += "${BSPDIR}/sources/meta-agl/meta-agl-profile-core"
+BBLAYERS += "${BSPDIR}/sources/meta-agl/meta-agl-profile-demo"
+BBLAYERS += "${BSPDIR}/sources/meta-agl/meta-agl-profile-graphical"
+BBLAYERS += "${BSPDIR}/sources/meta-agl/meta-app-framework"
+BBLAYERS += "${BSPDIR}/sources/meta-agl/meta-security"
+BBLAYERS += "${BSPDIR}/sources/meta-nxp-agl"
+BBLAYERS += "${BSPDIR}/sources/meta-openembedded/meta-perl"
+BBLAYERS += "${BSPDIR}/sources/meta-security"
+'
+
+echo "$agl_layers" >> conf/bblayers.conf
 
 echo done except for cleanup
 
