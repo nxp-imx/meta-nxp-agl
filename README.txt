@@ -3,7 +3,7 @@ Demos can then be run on top of this.
 
 This image has only been run on i.MX 6QP Sabre and Sabre Auto.
 It is not supported nor tested.  It is simply a demo showing that the basic image runs.
-It runs on the 4.9.88-2.0.0 Freescale release of Linux.
+It runs on the 4.9.88-2.0.0 NXP release of Linux.
 
 Build instructions:
 To get the BSP you need to have `repo` installed.
