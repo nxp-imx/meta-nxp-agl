@@ -96,3 +96,7 @@ echo done except for cleanup
 
 agl_exit_message
 agl_cleanup
+
+#run aglsetup.sh script
+source ../sources/meta-agl/scripts/aglsetup.sh -b .
+
