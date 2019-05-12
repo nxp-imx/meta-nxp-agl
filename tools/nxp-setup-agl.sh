@@ -85,6 +85,8 @@ BBLAYERS += "${BSPDIR}/sources/meta-agl/meta-agl-profile-cluster"
 BBLAYERS += "${BSPDIR}/sources/meta-agl/meta-agl-profile-graphical"
 BBLAYERS += "${BSPDIR}/sources/meta-agl/meta-app-framework"
 BBLAYERS += "${BSPDIR}/sources/meta-agl/meta-security"
+BBLAYERS += "${BSPDIR}/sources/meta-agl/meta-agl-profile-graphical-qt5"
+BBLAYERS += "${BSPDIR}/sources/meta-agl/meta-agl-bsp"
 BBLAYERS += "${BSPDIR}/sources/meta-nxp-agl"
 BBLAYERS += "${BSPDIR}/sources/meta-openembedded/meta-perl"
 BBLAYERS += "${BSPDIR}/sources/meta-security"
@@ -99,4 +101,8 @@ agl_cleanup
 
 #run aglsetup.sh script
 source ../sources/meta-agl/scripts/aglsetup.sh -b .
+
+echo "DISTRO_SETUP_MANIFEST='$(realpath -Ls $BUILDDIR)/aglsetup.manifest'" >> conf/local.conf
+echo "DISTRO_MANIFEST_GENERATOR = '$(dirname $(realpath $BASH_SOURCE))/../sources/meta-agl/scripts/distro-manifest-generator.sh'" >> conf/local.conf
+
 
