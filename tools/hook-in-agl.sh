@@ -43,11 +43,12 @@ agl_cleanup()
 agl_layers='
 # Layers for AGL demo
 BBLAYERS += "${BSPDIR}/sources/meta-agl-demo"
-BBLAYERS += "${BSPDIR}/sources/meta-agl-devel/meta-hmi-framework"
+BBLAYERS += "${BSPDIR}/sources/meta-agl-devel/meta-pipewire"
+BBLAYERS += "${BSPDIR}/sources/meta-agl/meta-agl-bsp"
 BBLAYERS += "${BSPDIR}/sources/meta-agl/meta-agl-distro"
 BBLAYERS += "${BSPDIR}/sources/meta-agl/meta-agl-profile-core"
-BBLAYERS += "${BSPDIR}/sources/meta-agl/meta-agl-profile-demo"
 BBLAYERS += "${BSPDIR}/sources/meta-agl/meta-agl-profile-graphical"
+BBLAYERS += "${BSPDIR}/sources/meta-agl/meta-agl-profile-graphical-qt5"
 BBLAYERS += "${BSPDIR}/sources/meta-agl/meta-app-framework"
 BBLAYERS += "${BSPDIR}/sources/meta-agl/meta-security"
 BBLAYERS += "${BSPDIR}/sources/meta-nxp-agl"
