@@ -78,15 +78,14 @@ EULA=1 DISTRO=$AGLDISTRO source $RELEASEPROGNAME -b $BUILD_DIR
 agl_layers='
 # Layers for AGL demo
 BBLAYERS += "${BSPDIR}/sources/meta-agl-demo"
-BBLAYERS += "${BSPDIR}/sources/meta-agl-devel/meta-hmi-framework"
+BBLAYERS += "${BSPDIR}/sources/meta-agl-devel/meta-pipewire"
+BBLAYERS += "${BSPDIR}/sources/meta-agl/meta-agl-bsp"
 BBLAYERS += "${BSPDIR}/sources/meta-agl/meta-agl-distro"
 BBLAYERS += "${BSPDIR}/sources/meta-agl/meta-agl-profile-core"
-BBLAYERS += "${BSPDIR}/sources/meta-agl/meta-agl-profile-cluster"
 BBLAYERS += "${BSPDIR}/sources/meta-agl/meta-agl-profile-graphical"
+BBLAYERS += "${BSPDIR}/sources/meta-agl/meta-agl-profile-graphical-qt5"
 BBLAYERS += "${BSPDIR}/sources/meta-agl/meta-app-framework"
 BBLAYERS += "${BSPDIR}/sources/meta-agl/meta-security"
-BBLAYERS += "${BSPDIR}/sources/meta-agl/meta-agl-profile-graphical-qt5"
-BBLAYERS += "${BSPDIR}/sources/meta-agl/meta-agl-bsp"
 BBLAYERS += "${BSPDIR}/sources/meta-nxp-agl"
 BBLAYERS += "${BSPDIR}/sources/meta-openembedded/meta-perl"
 BBLAYERS += "${BSPDIR}/sources/meta-security"
