@@ -59,7 +59,7 @@ do
     esac
 done
 
-RELEASEPROGNAME="./fsl-setup-release.sh"
+RELEASEPROGNAME="./imx-setup-release.sh"
 
 # get command line options
 OLD_OPTIND=$OPTIND
