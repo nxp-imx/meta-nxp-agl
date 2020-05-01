@@ -3,7 +3,7 @@ Demos can then be run on top of this.
 
 This image is not supported nor tested.
 It's simply a demo showing that the basic image runs.
-It runs on i.MX Linux release 4.19.35-1.0.0.
+It runs on i.MX Linux release 5.4.3-1.0.0.
 
 Build instructions:
 To get the BSP you need to have `repo` installed.
@@ -21,7 +21,7 @@ Download the BSP Yocto Project Environment into your directory:
 
 $: mkdir imx-yocto-bsp
 $: cd imx-yocto-bsp
-$: repo init -u https://source.codeaurora.org/external/imx/imx-manifest -b imx-linux-thud -m imx-4.19.35-1.0.0_demo_agl.xml
+$: repo init -u https://source.codeaurora.org/external/imx/imx-manifest -b imx-linux-thud -m imx-5.4.3-1.0.0_demo_agl.xml
 
 $: repo sync
 
