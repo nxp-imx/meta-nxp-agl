@@ -103,5 +103,5 @@ source ../sources/meta-agl/scripts/aglsetup.sh -b .
 
 echo "DISTRO_SETUP_MANIFEST='$(realpath -Ls $BUILDDIR)/aglsetup.manifest'" >> conf/local.conf
 echo "DISTRO_MANIFEST_GENERATOR = '$(dirname $(realpath $BASH_SOURCE))/../sources/meta-agl/scripts/distro-manifest-generator.sh'" >> conf/local.conf
-
+echo "DISTRO_FEATURES += 'polkit opengl'" >> conf/local.conf
 
