@@ -1,0 +1,69 @@
+diff --git a/meta-agl-bsp/conf/include/agl_imx8qm-mek.inc b/meta-agl-bsp/conf/include/agl_imx8qm-mek.inc
+new file mode 100644
+index 00000000..b2eb62f7
+--- /dev/null
++++ b/meta-agl-bsp/conf/include/agl_imx8qm-mek.inc
+@@ -0,0 +1,26 @@
++DISTRO_FEATURES:append = " agl-medium-arm-compiler"
++
++# Force use of the community supported LTS kernel instead of the
++# default linux-imx
++IMX_DEFAULT_KERNEL_imx8qmmek = "linux-imx"
++
++# For EVKB wifi support
++#MACHINE_FEATURES_append = " bcm4356"
++
++# Add helper to drive setting up HCI UART device
++#MACHINE_EXTRA_RRECOMMENDS_append = " hci-uart-helper"
++
++# Disable meta-freescale package architecure mangling, as it causes
++# issues with AGL's explicit setting of DEFAULTTUNE.
++INHERIT:remove = "fsl-dynamic-packagearch"
++MACHINE_SOCARCH = "${TUNE_PKGARCH}"
++
++# Disable the meta-freescale weston-init bbappend as it conflicts
++# with AGL's.
++BBMASK = "meta-freescale/recipes-graphics/wayland/weston-init"
++
++AGL_DEFAULT_INITRAMFS_FSTYPES := ""
++
++# Use NXP components
++IMX_DEFAULT_BSP = "nxp"
++IMX_DEFAULT_KERNEL:imx8mq-evk = "linux-imx"
+diff --git a/templates/machine/imx8qm-mek/40_bblayers.conf.inc b/templates/machine/imx8qm-mek/40_bblayers.conf.inc
+new file mode 100644
+index 00000000..61be41f2
+--- /dev/null
++++ b/templates/machine/imx8qm-mek/40_bblayers.conf.inc
+@@ -0,0 +1,12 @@
++# This must be parsed after qt5, etc. layers so that they are correctly
++# recognized by meta-freescale/dynamic-layers
++BBLAYERS =+ "\
++  ${METADIR}/bsp/meta-freescale \
++  ${METADIR}/bsp/meta-freescale-distro \
++  ${METADIR}/external/meta-imx/meta-bsp \
++  ${METADIR}/external/meta-imx/meta-sdk \
++  ${METADIR}/external/meta-imx/meta-ml \
++  ${METADIR}/external/meta-imx/meta-v2x \
++  ${METADIR}/external/meta-imx/meta-cockpit \
++  ${METADIR}/external/meta-nxp-agl \
++  "
+diff --git a/templates/machine/imx8qm-mek/50_local.conf.inc b/templates/machine/imx8qm-mek/50_local.conf.inc
+new file mode 100644
+index 00000000..46b86083
+--- /dev/null
++++ b/templates/machine/imx8qm-mek/50_local.conf.inc
+@@ -0,0 +1,5 @@
++MACHINE = "imx8qm-mek"
++#see meta-agl/meta-agl-bsp/conf/include/agl_imx8qmmek.inc
++require conf/include/agl_imx8qm-mek.inc
++
++PREFERRED_VERSION_u-boot ?= "2022.04"
+diff --git a/templates/machine/imx8qm-mek/50_setup.sh b/templates/machine/imx8qm-mek/50_setup.sh
+new file mode 100644
+index 00000000..eefd1eb7
+--- /dev/null
++++ b/templates/machine/imx8qm-mek/50_setup.sh
+@@ -0,0 +1,2 @@
++find_and_ack_eula $METADIR/bsp/meta-freescale EULA
++export EULA_FLAG_NAME="ACCEPT_FSL_EULA"

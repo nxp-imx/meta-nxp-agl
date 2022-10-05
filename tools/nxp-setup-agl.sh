@@ -1,107 +1,71 @@
-#!/bin/sh
+################################################################################
 #
-# NXP Build Enviroment Setup Script
+# The MIT License (MIT)
 #
-# Copyright 2015-2016 Freescale Semiconductor
-# Copyright 2017-2018 NXP
+# Copyright (c) 2016 Stéphane Desneux <sdx@iot.bzh>
 #
-# This program is free software; you can redistribute it and/or modify
-# it under the terms of the GNU General Public License as published by
-# the Free Software Foundation; either version 2 of the License, or
-# (at your option) any later version.
+# Permission is hereby granted, free of charge, to any person obtaining a copy
+# of this software and associated documentation files (the "Software"), to deal
+# in the Software without restriction, including without limitation the rights
+# to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+# copies of the Software, and to permit persons to whom the Software is
+# furnished to do so, subject to the following conditions:
 #
-# This program is distributed in the hope that it will be useful,
-# but WITHOUT ANY WARRANTY; without even the implied warranty of
-# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-# GNU General Public License for more details.
+# The above copyright notice and this permission notice shall be included in
+# all copies or substantial portions of the Software.
 #
-# You should have received a copy of the GNU General Public License
-# along with this program; if not, write to the Free Software
-# Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
+# THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+# IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+# FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+# AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+# LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+# OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+# SOFTWARE.
+#
+################################################################################
 
-echo -e "\n----------------\n"
-agl_exit_message()
-{
-   echo "AGL setup complete"
-}
-
-agl_usage()
-{
-    echo -e "\nDescription: nxp-setup-agl.sh will setup the bblayers and local.conf for an AGL build."
-    echo -e "\nUsage: source nxp-setup-agl.sh
-    Optional parameters: [-b build-dir] [-h]"
-    echo "
-    * [-b build-dir]: Build directory, if unspecified, script uses 'bld-agl' as the output directory
-    * [-h]: help
-"
-}
-
-agl_cleanup()
-{
-    echo "Cleaning up variables"
-    unset BUILD_DIR AGLDISTRO OPTIND
-    unset nxp_setup_help nxp_setup_error nxp_setup_flag
-    unset agl_usage agl_cleanup agl_exit_message
-}
-
-echo Reading command line parameters
-# Read command line parameters
-while getopts "k:r:t:b:e:g:h" nxp_setup_flag
-do
-    case $nxp_setup_flag in
-        b) BUILD_DIR="$OPTARG";
-           echo -e "\n Build directory is $BUILD_DIR" ;
-           ;;
-        h) nxp_setup_help='true';
-           ;;
-        ?) nxp_setup_error='true';
-           ;;
-    esac
-done
-
-RELEASEPROGNAME="./imx-setup-release.sh"
-
-# get command line options
-OLD_OPTIND=$OPTIND
-
-# AGL only runs on Wayland
-unset AGLDISTRO
-AGLDISTRO="imx-agl-wayland"
-
-if [ -z "$BUILD_DIR" ]; then
-    BUILD_DIR=bld-agl
+# detect if this script is sourced: see http://stackoverflow.com/a/38128348/6255594
+SOURCED=0
+if [ -n "$ZSH_EVAL_CONTEXT" ]; then
+	[[ $ZSH_EVAL_CONTEXT =~ :file$ ]] && { SOURCED=1; SOURCEDIR=$(cd $(dirname -- $0) && pwd -P); }
+elif [ -n "$KSH_VERSION" ]; then
+	[[ "$(cd $(dirname -- $0) && pwd -P)/$(basename -- $0)" != "$(cd $(dirname -- ${.sh.file}) && pwd -P)/$(basename -- ${.sh.file})" ]] && { SOURCED=1; SOURCEDIR=$(cd $(dirname -- ${.sh.file}) && pwd -P); }
+elif [ -n "$BASH_VERSION" ]; then
+	[[ $0 != "$BASH_SOURCE" ]] && { SOURCED=1; SOURCEDIR=$(cd $(dirname -- $BASH_SOURCE) && pwd -P); }
 fi
 
-echo EULA=1 DISTRO=$AGLDISTRO source $RELEASEPROGNAME -b $BUILD_DIR
-EULA=1 DISTRO=$AGLDISTRO source $RELEASEPROGNAME -b $BUILD_DIR
+if [ $SOURCED -ne 1 ]; then
+	unset SOURCED
+	unset SOURCEDIR
+	echo "Error: this script needs to be sourced in a supported shell" >&2
+	echo "Please check that the current shell is bash, zsh or ksh and run this script as '. $0 <args>'" >&2
+	exit 56
+else
+	unset SOURCED
+	tmpfile=$(mktemp /tmp/aglsetup.XXXXXXXX)
+    
+	pushd .
+	cd meta-agl
+	git apply $SOURCEDIR/../patches/0001_add_imx8qm-mek_and_meta-imx_layers_to_bblayers.patch
+		
+	if [ $? -eq 0 ]; then
+		echo "Info: The patch was applied"
+	else
+		echo "Error: apply patch to meta-agl"
+	fi
 
-agl_layers='
-# Layers for AGL demo
-BBLAYERS += "${BSPDIR}/sources/meta-agl-demo"
-BBLAYERS += "${BSPDIR}/sources/meta-agl-devel/meta-pipewire"
-BBLAYERS += "${BSPDIR}/sources/meta-agl/meta-agl-bsp"
-BBLAYERS += "${BSPDIR}/sources/meta-agl/meta-agl-distro"
-BBLAYERS += "${BSPDIR}/sources/meta-agl/meta-agl-profile-core"
-BBLAYERS += "${BSPDIR}/sources/meta-agl/meta-agl-profile-graphical"
-BBLAYERS += "${BSPDIR}/sources/meta-agl/meta-agl-profile-graphical-qt5"
-BBLAYERS += "${BSPDIR}/sources/meta-agl/meta-app-framework"
-BBLAYERS += "${BSPDIR}/sources/meta-agl/meta-security"
-BBLAYERS += "${BSPDIR}/sources/meta-nxp-agl"
-BBLAYERS += "${BSPDIR}/sources/meta-openembedded/meta-perl"
-BBLAYERS += "${BSPDIR}/sources/meta-security"
-'
+	popd
+	$SOURCEDIR/../../../meta-agl/scripts/.aglsetup_genconfig.bash -s $tmpfile "$@"
+	rc=$?
+	unset SOURCEDIR
+	if [ $rc -eq 0 ]; then
+		source $tmpfile
+		rc=$?
+	else
+		echo "Error: configuration files generation failed. Environment is not ready."
+	fi
 
-echo "$agl_layers" >> conf/bblayers.conf
-
-echo done except for cleanup
-
-agl_exit_message
-agl_cleanup
-
-#run aglsetup.sh script
-source ../sources/meta-agl/scripts/aglsetup.sh -b .
-
-echo "DISTRO_SETUP_MANIFEST='$(realpath -Ls $BUILDDIR)/aglsetup.manifest'" >> conf/local.conf
-echo "DISTRO_MANIFEST_GENERATOR = '$(dirname $(realpath $BASH_SOURCE))/../sources/meta-agl/scripts/distro-manifest-generator.sh'" >> conf/local.conf
-echo "DISTRO_FEATURES += 'polkit opengl'" >> conf/local.conf
-
+	rm -f $tmpfile
+	unset tmpfile
+	return $rc
+fi
