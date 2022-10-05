@@ -21,13 +21,13 @@ Download the BSP Yocto Project Environment into your directory:
 
 $: mkdir imx-yocto-bsp
 $: cd imx-yocto-bsp
-$: repo init -u https://source.codeaurora.org/external/imx/imx-manifest -b imx-linux-thud -m imx-5.4.3-1.0.0_demo_agl.xml
+$: repo init -u ssh://bitbucket.sw.nxp.com/imx/imx-manifest -b linux-kirkstone-internal -m int-5.15.32-2.0.0_agl.xml
 
 $: repo sync
 
 Setup and Build for Wayland
 -------------------------------------------
-$: DISTRO=imx-agl-wayland MACHINE=imx6qpsabreauto source nxp-setup-agl.sh -b bld-agl
+$: source nxp-setup-agl.sh -f -m imx8qm-mek agl-demo
 
 IMAGES
 -------------------------------------------
