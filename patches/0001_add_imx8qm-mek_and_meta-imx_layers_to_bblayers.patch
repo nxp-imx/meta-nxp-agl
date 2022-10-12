@@ -8,7 +8,7 @@ index 00000000..b2eb62f7
 +
 +# Force use of the community supported LTS kernel instead of the
 +# default linux-imx
-+IMX_DEFAULT_KERNEL_imx8qmmek = "linux-imx"
++IMX_DEFAULT_KERNEL:imx8qm-mek = "linux-imx"
 +
 +# For EVKB wifi support
 +#MACHINE_FEATURES_append = " bcm4356"

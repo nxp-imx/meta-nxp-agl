@@ -46,7 +46,7 @@ else
     
 	pushd .
 	cd meta-agl
-	git apply $SOURCEDIR/../patches/0001_add_imx8qm-mek_and_meta-imx_layers_to_bblayers.patch
+	git apply $SOURCEDIR/external/meta-nxp-agl/patches/0001_add_imx8qm-mek_and_meta-imx_layers_to_bblayers.patch
 		
 	if [ $? -eq 0 ]; then
 		echo "Info: The patch was applied"
@@ -55,7 +55,7 @@ else
 	fi
 
 	popd
-	$SOURCEDIR/../../../meta-agl/scripts/.aglsetup_genconfig.bash -s $tmpfile "$@"
+	$SOURCEDIR/meta-agl/scripts/.aglsetup_genconfig.bash -s $tmpfile "$@"
 	rc=$?
 	unset SOURCEDIR
 	if [ $rc -eq 0 ]; then
