@@ -43,18 +43,24 @@ if [ $SOURCED -ne 1 ]; then
 else
 	unset SOURCED
 	tmpfile=$(mktemp /tmp/aglsetup.XXXXXXXX)
-    
-	pushd .
-	cd meta-agl
-	git apply $SOURCEDIR/external/meta-nxp-agl/patches/0001_add_imx8qm-mek_and_meta-imx_layers_to_bblayers.patch
-		
-	if [ $? -eq 0 ]; then
-		echo "Info: The patch was applied"
-	else
-		echo "Error: apply patch to meta-agl"
+
+    if [ ! -f meta-agl/meta-agl-bsp/conf/include/agl_imx8qm-mek.inc ] || 
+		[ ! -f meta-agl/templates/machine/imx8qm-mek/40_bblayers.conf.inc ] || 
+		[ ! -f meta-agl/templates/machine/imx8qm-mek/50_local.conf.inc ] || 
+		[ ! -f meta-agl/templates/machine/imx8qm-mek/50_setup.sh ]; then
+		pushd .
+		cd meta-agl
+		git apply $SOURCEDIR/external/meta-nxp-agl/patches/0001_add_imx8qm-mek_and_meta-imx_layers_to_bblayers.patch	
+		if [ $? -eq 0 ]; then
+			echo "Info: The patch was applied"
+		else
+			echo "Error: apply patch to meta-agl"
+		fi
+		popd
+	else 
+		echo "The patch is applied!"
 	fi
 
-	popd
 	$SOURCEDIR/meta-agl/scripts/.aglsetup_genconfig.bash -s $tmpfile "$@"
 	rc=$?
 	unset SOURCEDIR
