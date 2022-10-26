@@ -1,0 +1,50 @@
+From a970fe212389ba6d4fab00acfb10509bfa2ff54c Mon Sep 17 00:00:00 2001
+From: Tom Hochstein <tom.hochstein@nxp.com>
+Date: Tue, 18 Oct 2022 10:48:48 -0500
+Subject: [PATCH] Makefile: Use bindir and nonarch_base_libdir from toolchain
+
+The toolchain can provide guidance on where to install libraries and
+binaries. Use them. This fixes the install in two cases, for usrmerge
+and for multilib.
+
+Signed-off-by: Tom Hochstein <tom.hochstein@nxp.com>
+---
+ Makefile | 15 +++++++++------
+ 1 file changed, 9 insertions(+), 6 deletions(-)
+
+diff --git a/Makefile b/Makefile
+index a54f09d..0cd4201 100644
+--- a/Makefile
++++ b/Makefile
+@@ -8,6 +8,9 @@ $(error invalid output directory (O=$(O)))
+ endif
+ endif
+ 
++bindir ?= /bin
++nonarch_base_libdir ?= /lib
++
+ -include $(TA_DEV_KIT_DIR)/host_include/conf.mk
+ -include $(OPTEE_CLIENT_EXPORT)/include/optee_client_config.mk
+ 
+@@ -73,12 +76,12 @@ checkpatch-staging:
+ 	@./scripts/checkpatch.sh --cached
+ 
+ install:
+-	$(echo) '  INSTALL ${DESTDIR}/lib/optee_armtz'
+-	$(q)mkdir -p ${DESTDIR}/lib/optee_armtz
+-	$(q)find $(out-dir) -name \*.ta -exec cp {} ${DESTDIR}/lib/optee_armtz \;
+-	$(echo) '  INSTALL ${DESTDIR}/bin'
+-	$(q)mkdir -p ${DESTDIR}/bin
+-	$(q)cp $(out-dir)/xtest/xtest ${DESTDIR}/bin
++	$(echo) '  INSTALL ${DESTDIR}$(nonarch_base_libdir)/optee_armtz'
++	$(q)mkdir -p ${DESTDIR}$(nonarch_base_libdir)/optee_armtz
++	$(q)find $(out-dir) -name \*.ta -exec cp {} ${DESTDIR}$(nonarch_base_libdir)/optee_armtz \;
++	$(echo) '  INSTALL ${DESTDIR}$(bindir)'
++	$(q)mkdir -p ${DESTDIR}$(bindir)
++	$(q)cp $(out-dir)/xtest/xtest ${DESTDIR}$(bindir)
+ 	$(echo) '  INSTALL ${DESTDIR}/$(CFG_TEE_PLUGIN_LOAD_PATH)'
+ 	$(q)mkdir -p ${DESTDIR}/$(CFG_TEE_PLUGIN_LOAD_PATH)
+ 	$(q)cp $(out-dir)/supp_plugin/*.plugin ${DESTDIR}/$(CFG_TEE_PLUGIN_LOAD_PATH)
+-- 
+2.25.1
+
