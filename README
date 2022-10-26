@@ -1,5 +1,8 @@
-This builds the Wayland-Weston AGL image with the basic AGL interface. 
+This builds the Wayland-Weston AGL image with the basic AGL interface
+using the NXP i.MX BSP layers in https://github.com/nxp-imx/meta-imx.
 Demos can then be run on top of this.
+The i.MX 8QuadMax and 8QuadXPlus Multisensory Environment Kits are
+supported.
 
 This image is not supported nor tested.
 It's simply a demo showing that the basic image runs.
@@ -27,7 +30,9 @@ $: repo sync
 
 Setup and Build for Wayland
 -------------------------------------------
-$: DISTRO=imx-agl-wayland MACHINE=imx6qpsabreauto source nxp-setup-agl.sh -b bld-agl
+$: source meta-agl/scripts/aglsetup.sh -m MACHINE agl-demo
+
+Supported machines: imx8qm-mek, imx8qxp-mek
 
 IMAGES
 -------------------------------------------
