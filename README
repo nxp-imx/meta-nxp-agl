@@ -24,7 +24,7 @@ Download the BSP Yocto Project Environment into your directory:
 
 $: mkdir imx-yocto-bsp
 $: cd imx-yocto-bsp
-$: repo init -u https://github.com/nxp-imx/imx-manifest -b imx-linux-kirkstone -m imx-5.15.32-2.0.0_agl.xml
+$: repo init -u https://github.com/nxp-imx/imx-manifest -b imx-linux-kirkstone -m imx-5.15.52-2.1.0_agl.xml
 
 $: repo sync
 
